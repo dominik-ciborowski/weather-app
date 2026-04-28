@@ -1,6 +1,6 @@
 # Weather App
 
-Simple Open weather Backend + Frontend app.
+Simple Open Weather API - Backend + Frontend project.
 
 ## Backend Setup
 
