@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: backend
+
+server:
+  servlet:
+    context-path: /api
+
+weather:
+  api-key: ${OPENWEATHER_API_KEY:}
+  base-url: https://api.openweathermap.org
+  timeout: 5s
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
