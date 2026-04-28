@@ -87,7 +87,7 @@ class WeatherApiIntegrationTest {
                     "wind_deg": 210,
                     "uvi": 3.9,
                     "weather": [
-                      { "main": "Rain", "description": "light rain" }
+                      { "main": "Rain", "description": "light rain", "icon": "10d" }
                     ]
                   },
                   "daily": [
@@ -96,7 +96,7 @@ class WeatherApiIntegrationTest {
                       "temp": { "min": 11.0, "max": 19.0 },
                       "pop": 0.35,
                       "weather": [
-                        { "main": "Rain", "description": "showers" }
+                        { "main": "Rain", "description": "showers", "icon": "09d" }
                       ]
                     },
                     {
@@ -104,7 +104,7 @@ class WeatherApiIntegrationTest {
                       "temp": { "min": 10.5, "max": 20.2 },
                       "pop": 0.10,
                       "weather": [
-                        { "main": "Clouds", "description": "broken clouds" }
+                        { "main": "Clouds", "description": "broken clouds", "icon": "04d" }
                       ]
                     },
                     {
@@ -112,7 +112,7 @@ class WeatherApiIntegrationTest {
                       "temp": { "min": 9.0, "max": 22.0 },
                       "pop": 0.00,
                       "weather": [
-                        { "main": "Clear", "description": "clear sky" }
+                        { "main": "Clear", "description": "clear sky", "icon": "01d" }
                       ]
                     }
                   ],
@@ -134,6 +134,7 @@ class WeatherApiIntegrationTest {
         assertThat(response.body()).contains("\"city\":\"Warsaw\"");
         assertThat(response.body()).contains("\"units\":\"metric\"");
         assertThat(response.body()).contains("\"description\":\"light rain\"");
+        assertThat(response.body()).contains("\"icon\":\"10d\"");
         assertThat(response.body()).contains("\"event\":\"Flood Warning\"");
 
         wireMock.verify(getRequestedFor(urlPathEqualTo("/geo/1.0/direct")));

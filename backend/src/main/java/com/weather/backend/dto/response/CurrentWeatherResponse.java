@@ -9,6 +9,7 @@ public record CurrentWeatherResponse(
     double windSpeed,
     int windDirection,
     double uvIndex,
-    String description
+    String description,
+    String icon
 ) {
 }

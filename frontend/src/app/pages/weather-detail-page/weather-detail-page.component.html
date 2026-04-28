@@ -1,0 +1,141 @@
+<main class="weather-page">
+  <header class="page-header">
+    <a class="back-link" routerLink="/" aria-label="Back to search">
+      <span aria-hidden="true">←</span>
+    </a>
+
+    <div class="header-row">
+      <div>
+        <p class="eyebrow">Weather Dashboard</p>
+        <h1>{{ weather()?.summary?.city ?? city() }}</h1>
+      </div>
+
+      <div class="units-toggle" aria-label="Units">
+        @for (option of unitsOptions; track option.value) {
+          <button
+            type="button"
+            [class.is-active]="units() === option.value"
+            [disabled]="loading()"
+            (click)="setUnits(option.value)"
+          >
+            {{ option.label }}
+          </button>
+        }
+      </div>
+    </div>
+  </header>
+
+  @if (loading()) {
+    <section class="loading-state" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Loading weather for {{ city() }}...</p>
+    </section>
+  } @else if (error()) {
+    <section class="error-state" aria-live="polite">
+      <h2>Could not load weather</h2>
+      <p>{{ error()?.message }}</p>
+      <a routerLink="/">Search for another city</a>
+    </section>
+  } @else if (weather(); as weatherData) {
+    <section class="current-panel" aria-label="Current conditions">
+      <div class="current-main">
+        @if (weatherData.summary.current.icon) {
+          <img
+            [src]="weatherIconUrl(weatherData.summary.current.icon)"
+            [alt]="weatherData.summary.current.description"
+          />
+        }
+
+        <div>
+          <p class="current-temp">
+            {{ weatherData.summary.current.temperature | number: '1.0-0' }}{{ temperatureSuffix() }}
+          </p>
+          <p class="description">{{ weatherData.summary.current.description | titlecase }}</p>
+        </div>
+      </div>
+
+      <dl class="conditions-grid">
+        <div>
+          <dt>Feels like</dt>
+          <dd>{{ weatherData.summary.current.feelsLike | number: '1.0-0' }}{{ temperatureSuffix() }}</dd>
+        </div>
+        <div>
+          <dt>Humidity</dt>
+          <dd>{{ weatherData.summary.current.humidity }}%</dd>
+        </div>
+        <div>
+          <dt>Wind</dt>
+          <dd>
+            {{ weatherData.summary.current.windSpeed | number: '1.0-1' }} {{ windSpeedSuffix() }}
+            {{ windDirectionLabel(weatherData.summary.current.windDirection) }}
+          </dd>
+        </div>
+        <div>
+          <dt>UV index</dt>
+          <dd>{{ weatherData.summary.current.uvIndex | number: '1.0-1' }}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="forecast-section" aria-labelledby="daily-title">
+      <h2 id="daily-title">7-day forecast</h2>
+
+      <div class="daily-row">
+        @for (day of weatherData.summary.dailyForecast; track day.date) {
+          <article class="daily-card">
+            <h3>{{ day.date | date: 'EEE' }}</h3>
+            @if (day.icon) {
+              <img [src]="weatherIconUrl(day.icon)" [alt]="day.description" />
+            }
+            <p class="range">
+              {{ day.minTemperature | number: '1.0-0' }}{{ temperatureSuffix() }}
+              /
+              {{ day.maxTemperature | number: '1.0-0' }}{{ temperatureSuffix() }}
+            </p>
+            <p class="pop">{{ day.precipitationProbability | percent: '1.0-0' }}</p>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section class="chart-section" aria-labelledby="hourly-title">
+      <h2 id="hourly-title">Next 24 hours</h2>
+      <div class="chart-frame">
+        <canvas
+          baseChart
+          type="line"
+          [data]="chartData()"
+          [options]="chartOptions"
+        ></canvas>
+      </div>
+    </section>
+
+    @if (weatherData.summary.alerts.length > 0) {
+      <section class="alerts-section" aria-labelledby="alerts-title">
+        <h2 id="alerts-title">Active alerts</h2>
+
+        <div class="alerts-list">
+          @for (alert of weatherData.summary.alerts; track alert.event + alert.start) {
+            <details>
+              <summary>
+                <span>{{ alert.event }}</span>
+                <small>{{ alert.source }}</small>
+              </summary>
+              <dl>
+                <div>
+                  <dt>Starts</dt>
+                  <dd>{{ alert.start | date: 'medium' }}</dd>
+                </div>
+                <div>
+                  <dt>Ends</dt>
+                  <dd>{{ alert.end | date: 'medium' }}</dd>
+                </div>
+              </dl>
+              <p>{{ alert.description }}</p>
+            </details>
+          }
+        </div>
+      </section>
+    }
+  }
+</main>

@@ -7,6 +7,7 @@ public record DailyForecastItemResponse(
     double minTemperature,
     double maxTemperature,
     double precipitationProbability,
-    String description
+    String description,
+    String icon
 ) {
 }

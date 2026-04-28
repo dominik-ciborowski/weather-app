@@ -21,11 +21,12 @@ weather:
 
 You can also place a local override in `backend/src/main/resources/application-local.yml`, but environment variables are preferred.
 
-### Run The Backend
+### Run the Backend
 
 From the `backend` directory:
 
 ```bash
+cd backend
 ./mvnw spring-boot:run
 ```
 
@@ -41,45 +42,37 @@ Swagger UI API specification:
 http://localhost:8080/api/swagger-ui.html
 ```
 
-### Example cURL Commands
+## Run the Frontend
 
-Current weather:
+From the `frontend` directory:
 
 ```bash
-curl "http://localhost:8080/api/weather/current?city=Warsaw&units=metric"
+cd frontend
+npm install
+npx ng serve
 ```
 
-Hourly forecast:
+Or, if Angular CLI is installed globally:
 
 ```bash
-curl "http://localhost:8080/api/weather/forecast/hourly?city=Warsaw&hours=12&units=metric"
-```
-
-Daily forecast:
-
-```bash
-curl "http://localhost:8080/api/weather/forecast/daily?city=Warsaw&days=7&units=metric"
-```
-
-Weather alerts:
-
-```bash
-curl "http://localhost:8080/api/weather/alerts?city=Warsaw"
-```
-
-Weather summary:
-
-```bash
-curl "http://localhost:8080/api/weather/summary?city=Warsaw&units=metric"
-```
-
-
-## Run The Frontend
-
-TODO
-
-When the Angular frontend is created, it will typically be started with:
-
-```bash
+cd frontend
 ng serve
+```
+
+The frontend runs on:
+
+```text
+http://localhost:4200
+```
+
+During development it calls the backend configured in:
+
+```text
+frontend/src/environments/environment.ts
+```
+
+Default API base URL:
+
+```text
+http://localhost:8080/api
 ```

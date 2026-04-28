@@ -10,6 +10,7 @@ public record HourlyForecastItemResponse(
     double windSpeed,
     int windDirection,
     double precipitationProbability,
-    String description
+    String description,
+    String icon
 ) {
 }

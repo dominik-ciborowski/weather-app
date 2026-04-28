@@ -66,7 +66,8 @@ public record OneCallResponse(
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record WeatherDescription(
         String main,
-        String description
+        String description,
+        String icon
     ) {
     }
 }

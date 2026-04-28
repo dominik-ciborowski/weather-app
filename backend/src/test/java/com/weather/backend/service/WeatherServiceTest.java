@@ -50,6 +50,7 @@ class WeatherServiceTest {
         assertThat(response.windDirection()).isEqualTo(210);
         assertThat(response.uvIndex()).isEqualTo(3.9);
         assertThat(response.description()).isEqualTo("light rain");
+        assertThat(response.icon()).isEqualTo("10d");
     }
 
     @Test
@@ -124,7 +125,7 @@ class WeatherServiceTest {
                 5.6,
                 210,
                 3.9,
-                List.of(new OneCallResponse.WeatherDescription("Rain", "light rain"))
+                List.of(new OneCallResponse.WeatherDescription("Rain", "light rain", "10d"))
             ),
             List.of(),
             List.of(
@@ -132,19 +133,19 @@ class WeatherServiceTest {
                     1_714_825_600L,
                     new OneCallResponse.TemperatureRange(11.0, 19.0),
                     0.35,
-                    List.of(new OneCallResponse.WeatherDescription("Rain", "showers"))
+                    List.of(new OneCallResponse.WeatherDescription("Rain", "showers", "09d"))
                 ),
                 new OneCallResponse.DailyWeather(
                     1_714_912_000L,
                     new OneCallResponse.TemperatureRange(10.5, 20.2),
                     0.10,
-                    List.of(new OneCallResponse.WeatherDescription("Clouds", "broken clouds"))
+                    List.of(new OneCallResponse.WeatherDescription("Clouds", "broken clouds", "04d"))
                 ),
                 new OneCallResponse.DailyWeather(
                     1_714_998_400L,
                     new OneCallResponse.TemperatureRange(9.0, 22.0),
                     0.00,
-                    List.of(new OneCallResponse.WeatherDescription("Clear", "clear sky"))
+                    List.of(new OneCallResponse.WeatherDescription("Clear", "clear sky", "01d"))
                 )
             ),
             List.of(

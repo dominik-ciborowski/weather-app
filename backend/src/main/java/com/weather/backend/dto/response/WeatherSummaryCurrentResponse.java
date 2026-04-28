@@ -7,6 +7,7 @@ public record WeatherSummaryCurrentResponse(
     double windSpeed,
     int windDirection,
     double uvIndex,
-    String description
+    String description,
+    String icon
 ) {
 }

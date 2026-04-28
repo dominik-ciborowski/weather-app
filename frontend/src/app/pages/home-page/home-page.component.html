@@ -1,0 +1,55 @@
+<main class="home-page">
+  <section class="hero">
+    <p class="eyebrow">Weather Dashboard</p>
+    <h1>Find current weather by city.</h1>
+    <p class="intro">
+      Search the current weather for the city or use your recent searches below.
+    </p>
+
+    <form class="search-form" (ngSubmit)="submitSearch()">
+      <label class="search-label" for="city">City</label>
+      <div class="search-row">
+        <input
+          id="city"
+          name="city"
+          type="text"
+          [(ngModel)]="city"
+          autocomplete="address-level2"
+          placeholder="Try Warsaw, Copenhagen, or Tokyo"
+        />
+        <button type="submit" [disabled]="!city.trim()">Search</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="recent-panel" aria-labelledby="recent-title" [class.is-empty]="recentCities().length === 0">
+    <div class="recent-header">
+      <h2 id="recent-title">Recent searches</h2>
+      <span>{{ recentCities().length }} saved</span>
+    </div>
+
+    @if (recentCities().length > 0) {
+      <ul class="recent-list">
+        @for (city of recentCities(); track city.toLocaleLowerCase()) {
+          <li>
+            <button class="recent-city" type="button" (click)="searchRecentCity(city)">
+              {{ city }}
+            </button>
+            <button
+              class="remove-city"
+              type="button"
+              [attr.aria-label]="'Remove ' + city + ' from recent searches'"
+              (click)="removeRecentCity(city)"
+            >
+              ×
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <div class="recent-empty">
+        Cities you search for will appear here.
+      </div>
+    }
+  </section>
+</main>

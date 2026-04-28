@@ -55,7 +55,8 @@ public class WeatherService {
             currentWeather.windSpeed(),
             currentWeather.windDirection(),
             currentWeather.uvIndex(),
-            currentWeather.description()
+            currentWeather.description(),
+            currentWeather.icon()
         );
     }
 
@@ -152,6 +153,14 @@ public class WeatherService {
         return weatherDescriptions.get(0).description();
     }
 
+    private String extractIcon(List<OneCallResponse.WeatherDescription> weatherDescriptions) {
+        if (weatherDescriptions == null || weatherDescriptions.isEmpty()) {
+            return "";
+        }
+
+        return weatherDescriptions.get(0).icon();
+    }
+
     private WeatherSummaryCurrentResponse buildCurrentWeather(
         OneCallResponse.CurrentWeather currentWeather,
         String city
@@ -167,7 +176,8 @@ public class WeatherService {
             currentWeather.wind_speed(),
             currentWeather.wind_deg(),
             currentWeather.uvi(),
-            extractDescription(currentWeather.weather())
+            extractDescription(currentWeather.weather()),
+            extractIcon(currentWeather.weather())
         );
     }
 
@@ -180,7 +190,8 @@ public class WeatherService {
             hour.wind_speed(),
             hour.wind_deg(),
             hour.pop(),
-            extractDescription(hour.weather())
+            extractDescription(hour.weather()),
+            extractIcon(hour.weather())
         );
     }
 
@@ -190,7 +201,8 @@ public class WeatherService {
             day.temp().min(),
             day.temp().max(),
             day.pop(),
-            extractDescription(day.weather())
+            extractDescription(day.weather()),
+            extractIcon(day.weather())
         );
     }
 
