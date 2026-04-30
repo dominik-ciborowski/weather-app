@@ -30,7 +30,7 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-The API runs on `http://localhost:8080` with the `/api` context path, so the base URL is:
+The API runs on `http://localhost:8080`, and weather endpoints are under:
 
 ```text
 http://localhost:8080/api
@@ -39,7 +39,29 @@ http://localhost:8080/api
 Swagger UI API specification:
 
 ```text
-http://localhost:8080/api/swagger-ui.html
+http://localhost:8080/swagger-ui.html
+```
+
+### Backend Endpoint Examples
+
+```bash
+curl "http://localhost:8080/api/weather/current?city=Warsaw&units=metric"
+```
+
+```bash
+curl "http://localhost:8080/api/weather/forecast/hourly?city=Warsaw&hours=24&units=metric"
+```
+
+```bash
+curl "http://localhost:8080/api/weather/forecast/daily?city=Warsaw&days=7&units=metric"
+```
+
+```bash
+curl "http://localhost:8080/api/weather/alerts?city=Warsaw"
+```
+
+```bash
+curl "http://localhost:8080/api/weather/summary?city=Warsaw&units=metric"
 ```
 
 ## Run the Frontend

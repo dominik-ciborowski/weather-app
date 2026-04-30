@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/weather")
+@RequestMapping("/api/weather")
 @Tag(name = "Weather", description = "Weather lookup, forecasts, alerts, and combined summaries")
 public class WeatherController {
 
